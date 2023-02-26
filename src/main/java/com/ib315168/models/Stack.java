@@ -12,20 +12,25 @@ public class Stack
     this.stack = new LinkedList<>();
   }
 
-  public void push(Token token) {
+  public void push(Token token)
+  {
     stack.push(token);
   }
 
-  public Token pop() {
+  public Token pop()
+  {
     return stack.pop();
   }
 
-  public int size() {
+  public int size()
+  {
     return stack.size();
   }
 
-  public static Stack getInstance() {
-    if(INSTANCE == null) {
+  public static Stack getInstance()
+  {
+    if (INSTANCE == null)
+    {
       INSTANCE = new Stack();
     }
 
@@ -33,9 +38,11 @@ public class Stack
   }
 
   // Debug purposes only
-  public void visualize() {
+  public void visualize()
+  {
     System.out.println("------------------------------");
-    for(Token token : stack) {
+    for (Token token : stack)
+    {
       System.out.println(token.get());
     }
     System.out.println("------------------------------");

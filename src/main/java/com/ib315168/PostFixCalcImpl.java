@@ -13,21 +13,37 @@ public class PostFixCalcImpl implements PostFixCalc
 
   @Override public int evaluateExpression(ArrayList<Token> tokenList)
   {
-    while(stack.size() != 1 || tokenList.size() != 0) {
-      Token token = tokenList.remove(0);
+    try
+    {
+      while (stack.size() != 1 || tokenList.size() != 0)
+      {
+        Token token = tokenList.remove(0);
 
-      while(!(token instanceof Operator)) {
-        stack.push(token);
-        token = tokenList.remove(0);
+        while (!(token instanceof Operator))
+        {
+          stack.push(token);
+          token = tokenList.remove(0);
+        }
+
+        stack.push(calculate((Operand) stack.pop(), (Operand) stack.pop(),
+            (Operator) token));
+      }
+      return getResult();
+    }
+    catch (Exception e)
+    {
+      while(stack.size() != 0) {
+        stack.pop();
       }
 
-      stack.push(calculate((Operand) stack.pop(), (Operand) stack.pop(), (Operator) token));
+      throw new IllegalArgumentException(
+          "Invalid expression, could not evaluate.");
     }
-
-    return getResult();
   }
 
-  private Operand calculate(Operand operand1, Operand operand2, Operator operator) {
+  private Operand calculate(Operand operand1, Operand operand2,
+      Operator operator)
+  {
     return switch (operator.get())
         {
           case '+' -> new Operand(operand2.get() + operand1.get());
@@ -38,7 +54,8 @@ public class PostFixCalcImpl implements PostFixCalc
         };
   }
 
-  private int getResult() {
+  private int getResult()
+  {
     return (int) stack.pop().get();
   }
 }
