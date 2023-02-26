@@ -15,6 +15,7 @@ public class PostFixCalcImpl implements PostFixCalc
   {
     try
     {
+      tokenList = new ArrayList<>(tokenList);
       while (stack.size() != 1 || tokenList.size() != 0)
       {
         Token token = tokenList.remove(0);
@@ -32,7 +33,8 @@ public class PostFixCalcImpl implements PostFixCalc
     }
     catch (Exception e)
     {
-      while(stack.size() != 0) {
+      while (stack.size() != 0)
+      {
         stack.pop();
       }
 
